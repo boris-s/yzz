@@ -32,7 +32,7 @@ module Yzz
   # 
   def initialize *args
     @zz_dimensions = Hash.new { |ꜧ, missing_dimension|
-      ꜧ[ missing_dimension ] = YTed::Zz::SidePair
+      ꜧ[ missing_dimension ] = Yzz::SidePair
         .new( zz: self, dimension: missing_dimension )
     } # initialize the @zz_dimensions hash
     super # and proceed as usual
@@ -48,7 +48,7 @@ end
 
 class Object
   def is_a_zz?
-    is_a? ::YTed::Zz
+    is_a? ::Yzz
     # class_complies? ::YTed::Zz
   end
 end
