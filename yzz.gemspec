@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Yzz::VERSION
   spec.authors       = ["boris"]
   spec.email         = ["\"boris@iis.sinica.edu.tw\""]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{A zz structure domain model.}
+  spec.summary       = %q{Yzz module is a mixin that imbues object with zz qualities.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
