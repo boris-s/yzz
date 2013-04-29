@@ -43,7 +43,26 @@ module Yzz
   def along dimension
     @zz_dimensions[ dimension ]
   end
-  alias call along
+
+  # Returns all sides actually connected to a zz object.
+  # 
+  def connections
+    @zz_dimensions.map { |_, pair| [ pair.negward, pair.posward ] }
+      .reduce( [], :+ ).select { |side| side.neighbor.is_a_zz? }
+  end
+  alias connectivity connections
+
+  # Returns all neighbors of a zz object.
+  # 
+  def neighbors; connections.map &:neighbor end
+
+  # Returns all sides facing another zz object supplied as argument. (Note that
+  # this can be <em>more than 1</em> side: object A can be connected to B along
+  # more than 1 dimension.
+  # 
+  def towards other
+    connectivity.select { |side| side.neighbor == other }
+  end
 end
 
 class Object
