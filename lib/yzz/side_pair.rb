@@ -1,5 +1,3 @@
-#encoding: utf-8
-
 # Represents a pair of Zz::Side instances pertaining to a Zz object along a
 # particular dimension.
 # 
