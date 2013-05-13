@@ -34,7 +34,7 @@ class Yzz::Side
     conflicter = opposite_side( of: new_neighbor ).neighbor # have concerns
     return new_neighbor if conflicter == self # no neighbor change
     raise TypeError, "Suggested new neighbor (#{new_neighbor}) already " +
-      "has a conflicting #{direction.opposite} link along dimension " +
+      "has a conflicting #{OPPOSITE[ direction ]} link along dimension " +
       "#{dimension} !" if conflicter.is_a_zz?
 
     begin # FIXME: This should be an atomic transaction.
