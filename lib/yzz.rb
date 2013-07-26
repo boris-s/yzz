@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 require_relative 'yzz/version'
 require_relative 'yzz/side'
 require_relative 'yzz/side_pair'
