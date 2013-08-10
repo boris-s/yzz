@@ -1,4 +1,4 @@
-#encoding: utf-8
+# encoding: utf-8
 
 # Ted Nelson calls zz objects 'cells', and defines posward and negward cell
 # side in each dimension. This is represented by Side class here, which is

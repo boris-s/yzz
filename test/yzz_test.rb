@@ -1,7 +1,7 @@
 #! /usr/bin/ruby
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 
-require 'minitest/spec'
+gem 'minitest', '=4.7.4'
 require 'minitest/autorun'
 
 # Until they alias it in the core.

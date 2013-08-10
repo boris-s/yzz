@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 
 require_relative 'yzz/version'
 require_relative 'yzz/side'
@@ -20,7 +20,7 @@ require_relative 'yzz/side_pair'
 # A rank is a series of zz objects connected along one dimension. A rank viewed
 # horizontally is referred to as row. A rank viewed vertically is referred to
 # as column.
-
+# 
 # Mixin defining Zz structure (aka. hyperorthogonal structure). As represented
 # by YTed::Zz, a Zz structure is a collection of objects, whose connectivity is
 # defined in a multidimensional space in such way, that each object, along each
@@ -55,7 +55,9 @@ module Yzz
 
   # Returns all neighbors of a zz object.
   # 
-  def neighbors; connections.map &:neighbor end
+  def neighbors
+    connections.map &:neighbor
+  end
 
   # Returns all sides facing another zz object supplied as argument. (Note that
   # this can be <em>more than 1</em> side: object A can be connected to B along
