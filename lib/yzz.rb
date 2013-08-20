@@ -64,7 +64,10 @@ module Yzz
   # more than 1 dimension.
   # 
   def towards other
-    connectivity.select { |side| side.neighbor == other }
+    connectivity
+      .select { |side| side.neighbor == other }
+      .map { |side| [ side.dimension, side.direction] }
+      .map { |dim, dir| dir == :posward ? "#{dim} ->" : "-> #{dim}" }
   end
 
   # Short string describing the object.
