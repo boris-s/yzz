@@ -66,6 +66,18 @@ module Yzz
   def towards other
     connectivity.select { |side| side.neighbor == other }
   end
+
+  # Short string describing the object.
+  # 
+  def to_s
+    "#<a Zz object with #{connections.size} connections>"
+  end
+
+  # Inspect string of the object.
+  # 
+  def inspect
+    to_s
+  end
 end
 
 class Object
