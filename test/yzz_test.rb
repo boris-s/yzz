@@ -40,7 +40,7 @@ describe Yzz do
     end
 
     it "has #to_s" do
-      assert @a.along(:row).to_s.starts_with? "#<YTed::Zz::SidePair"
+      assert @a.along(:row).to_s.starts_with? "#<Yzz::SidePair"
     end
 
     describe 'more advanced zz object behavior' do

@@ -44,7 +44,7 @@ class Yzz::SidePair
   # Returns the string briefly describing the instance.
   # 
   def to_s
-    "#<YZz::SidePair: #{zz} along #{dimension}>"
+    "#<Yzz::SidePair: #{zz} along #{dimension}>"
   end
 
   # Instance inspect string.
