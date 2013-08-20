@@ -66,12 +66,6 @@ class Yzz::Side
   end
   alias * crossover
 
-  # Returns the string briefly describing the instance.
-  # 
-  def to_s
-    "#<YTed::Zz::Side: #{direction} side of #{zz} along #{dimension}>"
-  end
-
   # Given a zz object (named argument :of), returns its side along same
   # dimension, in the direction same as self.
   # 
@@ -92,6 +86,18 @@ class Yzz::Side
     unlink!.tap do |neighbor|
       opposite_side( of: neighbor ).unlink! if neighbor.is_a_zz?
     end
+  end
+
+  # Returns the string briefly describing the instance.
+  # 
+  def to_s
+    "#<Yzz::Side: #{zz} along #{dimension}, #{direction}>"
+  end
+
+  # Inspect string of the instance.
+  # 
+  def inspect
+    to_s
   end
 
   protected
