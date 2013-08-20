@@ -88,6 +88,12 @@ class Yzz::Side
     end
   end
 
+  # Returns the "side label" string.
+  # 
+  def label
+    direction == :posward ? "#{dimension}->" : "<-#{dimension}"
+  end
+
   # Returns the string briefly describing the instance.
   # 
   def to_s
