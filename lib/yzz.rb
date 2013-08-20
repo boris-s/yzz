@@ -70,7 +70,7 @@ module Yzz
   # Short string describing the object.
   # 
   def to_s
-    "#<a Zz object with #{connections.size} connections>"
+    "#<Yzz, #{connections.size} conn.>"
   end
 
   # Inspect string of the object.
