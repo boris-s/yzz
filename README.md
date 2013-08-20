@@ -1,4 +1,4 @@
- # Yzz
+# Yzz
 
 `Yzz` is a domain model of Ted Nelson's Zz structures. 
 
