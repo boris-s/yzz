@@ -1,3 +1,3 @@
 module Yzz
-  VERSION = "0.0.1"
+  VERSION = "2.0.9"
 end
