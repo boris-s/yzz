@@ -8,16 +8,16 @@ Gem::Specification.new do |spec|
   spec.version       = Yzz::VERSION
   spec.authors       = ["boris"]
   spec.email         = ["\"boris@iis.sinica.edu.tw\""]
-  spec.description   = %q{A zz structure domain model.}
-  spec.summary       = %q{Yzz module is a mixin that imbues object with zz qualities.}
+  spec.summary       = %q{A domain model of Ted Nelson's ZZ structures.}
+  spec.description   = %q{Mixin Yzz imbues the includer with qualities of a ZZ structure cell.}
   spec.homepage      = ""
-  spec.license       = "MIT"
+  spec.license       = "GPLv3"
 
-  spec.files         = `git ls-files`.split($/)
+  spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
+  spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"
 end
