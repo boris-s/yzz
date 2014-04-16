@@ -1,5 +1,3 @@
-puts "Hello from Yzz::SidePair file!"
-
 # This class represents a pair of a negward and posward side (Yzz::Side instance)
 # of a Yzz cell along a certain dimension.
 # 
