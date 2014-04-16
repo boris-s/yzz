@@ -1,4 +1,4 @@
-require "yzz/version"
+require_relative "yzz/version"
 
 puts "Hello from Yzz gem!"
 
