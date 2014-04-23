@@ -57,11 +57,15 @@ class Yzz::Side
   end
   alias * crossover
 
-  # Given a Yzz object, returns its side along the dimension same as the
+  # Given a +Yzz+ object, returns its side along the dimension same as the
   # receiver's dimension, in the direction opposite to self.
   #
   def opposite_side( of: zz )
-    of.along( dimension ).send ::Yzz::Side::OPPOSITE[ direction ]
+    opposite = case direction
+               when :posward then :negward
+               when :negward then :posward
+               else fail "Unknown direction!" end
+    of.along( dimension ).send( opposite )
   end
 
   # Unlinks the neighbor, returning it.
