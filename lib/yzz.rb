@@ -2,7 +2,12 @@
 
 require_relative "yzz/version"
 require_relative "yzz/side"
+require_relative "yzz/posward_side"
+require_relative "yzz/negward_side"
 require_relative "yzz/side_pair"
+
+require "y_support/core_ext/object"
+require "y_support/core_ext/class"
 
 # Module Yzz is a mixin that provides qualities of a ZZ structure cell to its
 # includers.
@@ -28,29 +33,57 @@ require_relative "yzz/side_pair"
 # in <em>y_nelson</em> gem.
 # 
 module Yzz
-  # Adds initialization of the @zz_dimensions hash to #initialize.
+  # A hash whose #[] method expects a dimension as an argument and returns
+  # a dimension-specific mixin.
   # 
-  def initialize *args
-    @zz_dimensions = Hash.new { |ꜧ, missing_dimension|
-      ꜧ[ missing_dimension ] = Yzz::SidePair
-        .new( zz: self, dimension: missing_dimension )
-    } # initialize the @zz_dimensions hash
-    super # and proceed as usual
+  Dimensions = Hash.new { |ꜧ, missing_dimension|
+    ꜧ[ missing_dimension ] = Module.new do
+      define_singleton_method :dimension do missing_dimension end
+      define_method :dimension do missing_dimension end
+    end
+  }
+
+  # An accessor method for a dimension-specific mixin from Yzz::Dimensions hash.
+  # 
+  def self.Dimension dimension
+    Dimensions[ dimension ]
+  end
+
+  # A reader method that returns a hash whose #[] method returns an appropriate
+  # side pair for a supplied dimension. The hash is constructed upon first call
+  # of the reader. This reader subsequently redefines itself (shadows itself with
+  # a newly defined singleton method) so as to always simply return the same hash.
+  # 
+  def zz_dimensions
+    Hash.new { |ꜧ, missing_dimension|
+      ꜧ[ missing_dimension ] = Class.new SidePair() do
+        include ::Yzz.Dimension missing_dimension # ::Yzz just in case
+      end.new
+    }.tap { |ꜧ| define_singleton_method :zz_dimensions do ꜧ end }
+  end
+
+  # A reader method that returns a parametrized subclass of Yzz::SidePair. This
+  # reader subsequently redefines itself (shadows itself with a newly defined
+  # singleton method) so as to always simply return the same parametrized
+  # subclass.
+  # 
+  def SidePair
+    SidePair.parametrize( zz: self )
+      .tap { |ç| define_singleton_method :SidePair do ç end }
   end
 
   # Returns a SidePair instance along the requested dimension.
   # 
   def along dimension
-    @zz_dimensions[ dimension ]
+    zz_dimensions[ dimension ]
   end
 
   # Returns all sides actually connected to a zz object.
   # 
   def connections
-    @zz_dimensions.map { |_, pair| [ pair.negward, pair.posward ] }
+    zz_dimensions.map { |_, pair| [ pair.negward, pair.posward ] }
       .reduce( [], :+ ).select { |side| side.neighbor.is_a_zz? }
   end
-  alias connectivity connections
 
   # Returns all neighbors of a zz object.
   # 
@@ -63,7 +96,7 @@ module Yzz
   # more than 1 dimension.
   # 
   def towards other
-    connectivity.select { |side| side.neighbor == other }
+    connections.select { |side| side.neighbor == other }
   end
 
   # Prints the labels of the sides facing towards a given zz object.
@@ -72,7 +105,7 @@ module Yzz
     puts towards( other ).map &:label
   end
 
-  # Short string describing the object.
+  # A string describing the object with respect to its zz qualities.
   # 
   def to_s
     "#<Yzz, #{connections.size} conn.>"

@@ -41,12 +41,6 @@ describe Yzz do
     end
 
     describe 'more advanced zz object behavior' do
-      it "has #same_side" do
-        zz = @ç.new
-        assert_equal zz.along(:row).p, @a.along(:row).p.same_side( of: zz )
-        assert_equal zz.along(:row).n, @a.along(:row).n.same_side( of: zz )
-      end
-
       it "works" do
         a, b, c = @ç.new, @ç.new, @ç.new
         assert ( b.along(:row).posward << c ).nil?
