@@ -2,34 +2,35 @@
 # has exactly two sides, posward side and negward side, along each dimension.
 # This is represented by +Yzz::Side+ class here.
 # 
-class Yzz::Side
-  attr_reader :zz, :dimension, :direction, :neighbor
+module Yzz::Side
+  attr_reader :neighbor
 
-  # The constructor expects 3 arguments: +:zz+, +:dimension+, +:direction+,
-  # plus 1 optional argument, +:neighbor+.
+  # Reader #zz delegates to the class, relying on parametrized subclassing.
+  # 
+  def zz; self.class.zz end
+
+  # Reader #dimension delegates to the class, relying on parametrized
+  # subclassing.
+  # 
+  def dimension; self.class.dimension end
+
+  # The constructor has one optional named parameter :neighbor.
   #
-  def initialize( zz: ( fail ArgumentError, ":zz missing!" ),
-                  dimension: ( fail ArgumentError, ":dimension missing!" ),
-                  direction: ( fail ArgumentError, ":direction missing!" ),
-                  neighbor: nil )
-    fail TypeError, "Wrong :zz type!" unless zz.is_a_zz?
-    @zz, @dimension, @direction = zz, dimension, direction.to_sym
-    fail TypeError, "Direction must be either :posward or :negward!" unless
-      [ :posward, :negward ].include? direction.to_sym
+  def initialize neighbor: nil
     set_neighbor! neighbor
   end
 
   # Links a new neighbor, unlinking and returning the old one. Cares about the
   # argument type (a Yzz descendant or _nil_), and cares not to break the new
   # neighbor's conflicting connectivity, if any.
-  #
+  # 
   def link new_neighbor
     return unlink if new_neighbor.nil?
     fail TypeError, "Yzz object or nil expected!" unless new_neighbor.is_a_zz?
     conflicter = opposite_side( of: new_neighbor ).neighbor # have concerns
     return new_neighbor if conflicter == self               # no neighbor change
     fail TypeError, "Suggested new neighbor (#{new_neighbor}) already " +
-      "has a conflicting #{OPPOSITE[direction]} link along dimension " +
+      "has a conflicting #{opposite_direction} link along dimension " +
       "#{dimension}!" if conflicter.is_a_zz?
     begin # TODO: Should be an atomic transaction
       old_neighbor = set_neighbor! new_neighbor
@@ -57,35 +58,12 @@ class Yzz::Side
   end
   alias * crossover
 
-  # Given a +Yzz+ object, returns its side along the dimension same as the
-  # receiver's dimension, in the direction opposite to self.
-  #
-  def opposite_side( of: zz )
-    opposite = case direction
-               when :posward then :negward
-               when :negward then :posward
-               else fail "Unknown direction!" end
-    of.along( dimension ).send( opposite )
-  end
-
   # Unlinks the neighbor, returning it.
-  #
+  # 
   def unlink
     unlink!.tap do |neighbor|
       opposite_side( of: neighbor ).unlink! if neighbor.is_a_zz?
     end
-  end
-
-  # Returns the "side label" string.
-  # 
-  def label
-    direction == :posward ? "#{dimension}->" : "<-#{dimension}"
-  end
-  
-  # Returns the string briefly describing the instance.
-  # 
-  def to_s
-    "#<Yzz::Side: #{zz} along #{dimension}, #{direction}>"
   end
 
   # Inspect string of the instance.
@@ -107,4 +85,4 @@ class Yzz::Side
   def unlink!
     set_neighbor! nil
   end
-end # class Yzz::Side
+end # module Yzz::Side
