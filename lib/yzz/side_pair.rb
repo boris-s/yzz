@@ -12,12 +12,12 @@ class Yzz::SidePair
     self.class.zz 
   end
 
-  # Reader #dimension delegates to the class, relying on parametrized
-  # subclassing.
-  # 
-  def dimension
-    self.class.dimension
-  end
+  # # Reader #dimension delegates to the class, relying on parametrized
+  # # subclassing.
+  # # 
+  # def dimension
+  #   self.class.dimension
+  # end
 
   # Takes two optional named parameters, :negward_neighbor and :posward_neigbor.
   # If not given, the sides are constructed not linked to any neigbors.
