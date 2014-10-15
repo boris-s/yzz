@@ -2,32 +2,41 @@
 # of a Yzz cell along a certain dimension.
 # 
 class Yzz::SidePair
-  attr_reader :zz, :dimension, :negward, :posward
+  attr_reader :negward, :posward
   alias p posward
   alias n negward
 
-  def initialize( zz: ( raise ArgumentError, ":zz missing!" ),
-                  dimension: ( raise ArgumentError, ":dimension missing!" ),
-                  negward_neighbor: nil,
-                  posward_neighbor: nil )
-    @zz, @dimension = zz, dimension
-    @negward = Yzz::Side.new( zz: zz,
-                              dimension: dimension,
-                              direction: :negward,
-                              neighbor: negward_neighbor )
-    @posward = Yzz::Side.new( zz: zz,
-                              dimension: dimension,
-                              direction: :posward,
-                              neighbor: posward_neighbor )
+  # Reader #zz delegates to the class, relying on parametrized subclassing.
+  # 
+  def zz
+    self.class.zz 
   end
 
-  # Links a neighbor posward.
+  # Reader #dimension delegates to the class, relying on parametrized
+  # subclassing.
+  # 
+  def dimension
+    self.class.dimension
+  end
+
+  # Takes two optional named parameters, :negward_neighbor and :posward_neigbor.
+  # If not given, the sides are constructed not linked to any neigbors.
+  # 
+  def initialize( negward_neighbor: nil, posward_neighbor: nil )
+    param_class!( { NegwardSide: ::Yzz::NegwardSide,
+                    PoswardSide: ::Yzz::PoswardSide },
+                  with: { zz: zz, dimension: dimension } )
+    @negward = NegwardSide().new( neighbor: negward_neighbor )
+    @posward = PoswardSide().new( neighbor: posward_neighbor )
+  end
+
+  # Makes the supplied object the posward neighbor of the receiver.
   # 
   def >> new_neighbor
     new_neighbor.along( dimension ).tap { posward << new_neighbor }
   end
 
-  # Crossovers a new neighbor posward.
+  # Crossovers the supplied zz object posward.
   # 
   def * new_neighbor
     posward * new_neighbor
