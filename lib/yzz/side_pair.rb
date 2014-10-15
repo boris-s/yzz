@@ -12,6 +12,8 @@ class Yzz::SidePair
     self.class.zz 
   end
 
+  # TODO: This is not needed
+  # 
   # # Reader #dimension delegates to the class, relying on parametrized
   # # subclassing.
   # # 

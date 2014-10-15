@@ -60,6 +60,9 @@ module Yzz
         include ::Yzz.Dimension missing_dimension # ::Yzz just in case
       end.new
     }.tap { |ꜧ| define_singleton_method :zz_dimensions do ꜧ end }
+    # TODO: This second subclassing of SidePair() in effect acts as a
+    # singleton class. How about making it a true singleton class and
+    # just extending the objects with the mixin?
   end
 
   # A reader method that returns a parametrized subclass of Yzz::SidePair. This
@@ -70,6 +73,11 @@ module Yzz
   def SidePair
     SidePair.parametrize( zz: self )
       .tap { |ç| define_singleton_method :SidePair do ç end }
+    # TODO: How about
+    # 
+    # SidePair.parametrize zz: self do
+    #   def SidePair; self end
+    # end
   end
 
   # Returns a SidePair instance along the requested dimension.
