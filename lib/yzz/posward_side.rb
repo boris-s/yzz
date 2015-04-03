@@ -9,7 +9,7 @@ class Yzz::PoswardSide
 
   # Opposite direction of a PoswardSide is always :negward.
   # 
-  def opposite_direction; :posward end
+  def opposite_direction; :negward end
 
   # Given a +Yzz+ object, returns its posward side along the dimension same
   # as the receiver's dimension. If no object is given, the method simply
