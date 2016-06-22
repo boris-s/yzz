@@ -4,7 +4,7 @@
 require 'minitest/autorun'
 # Until they alias it in the core.
 require 'active_support/core_ext/string/starts_ends_with'
-require 'yzz'          # tested component itself
+require_relative '../lib/yzz'          # tested component itself
 
 describe Yzz do
   before do
@@ -63,4 +63,4 @@ describe Yzz do
       end
     end
   end
-end
+end # describe Yzz
