@@ -12,6 +12,7 @@ class Yzz::SidePair
     self.class.zz 
   end
 
+<<<<<<< HEAD
   # TODO: This is not needed
   # 
   # # Reader #dimension delegates to the class, relying on parametrized
@@ -20,6 +21,14 @@ class Yzz::SidePair
   # def dimension
   #   self.class.dimension
   # end
+=======
+  # Reader #dimension delegates to the class, relying on parametrized
+  # subclassing.
+  # 
+  def dimension
+    self.class.dimension
+  end
+>>>>>>> 1a82cb7a3a316f60320540cdf567963be3646bad
 
   # Takes two optional named parameters, :negward_neighbor and :posward_neigbor.
   # If not given, the sides are constructed not linked to any neigbors.

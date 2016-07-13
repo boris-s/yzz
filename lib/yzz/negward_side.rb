@@ -7,7 +7,11 @@ class Yzz::NegwardSide
   # 
   def direction; :negward end
 
+<<<<<<< HEAD
   # Opposite direction of a NegwardSide is always :negward.
+=======
+  # Opposite direction of a NegwardSide is always :posward.
+>>>>>>> 1a82cb7a3a316f60320540cdf567963be3646bad
   # 
   def opposite_direction; :posward end
 
